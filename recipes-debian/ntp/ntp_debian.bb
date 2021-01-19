@@ -34,9 +34,10 @@ SRC_URI += " \
 inherit autotools update-rc.d useradd systemd pkgconfig
 
 do_debian_patch_prepend() {
-    cd ${DEBIAN_UNPACK_DIR}
+    import subprocess
+    os.chdir(d.getVar("DEBIAN_UNPACK_DIR"))
     # Do not modify .def file. Otherwise, we need autogen and guile-2.0.
-    sed -i -e '/sntp-kod-location\.patch/ d' ./debian/patches/series
+    subprocess(["sed", "-i", "-e", "'/sntp-kod-location\.patch/ d'", "./debian/patches/series"])
 }
 
 # The ac_cv_header_readline_history is to stop ntpdc depending on either

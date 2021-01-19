@@ -53,14 +53,13 @@ BBCLASSEXTEND = "native nativesdk"
 
 # Debian provides 2 sources (freetype and ft2demo), but they will be unpacked separated. Because of it, do_debian_patch fail.
 do_debian_unpack_extra_append () {
-    if [ -d ${WORKDIR}/ft2demos-${PV} ]; then
-        if [ -d ${S}/ft2demos ] ; then
-            rm -rf ${S}/ft2demos
-        fi
-        mv ${WORKDIR}/ft2demos-${PV} ${S}/ft2demos
-    fi
+    import subprocess, shutil
+    if os.path.osdir(d.getVar("WORKDIR") + "/ft2demos-" + d.getVar("PV")):
+        if os.path.isdir(d.getVar("S") + "/ft2demos"):
+            shutil.rmtree(d.getVar("S") + "/ft2demos")
+        os.move(d.getVar("WORKDIR") + "/ft2demos-" + d.getVar("PV"), d.getVar("S") + "/ft2demos")
 
     # Fix wrong path in debian patches
-    sed -e "s#/ft2docs/#/#g" -i ${S}/debian/patches/no-web-fonts.patch
-    sed -e "s#/ft2docs/#/#g" -i ${S}/debian/patches/hide-donations-information.patch
+    subprocess.run(["sed", "-e", "'s#/ft2docs/#/#g'", "-i", d.getVar("S") + "/debian/patches/no-web-fonts.patch"])
+    subprocess.run(["sed", "-e", "'s#/ft2docs/#/#g'", "-i", d.getVar("S") + "/debian/patches/hide-donations-information.patch"])
 }

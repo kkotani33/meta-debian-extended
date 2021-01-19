@@ -17,7 +17,7 @@ require recipes-debian/sources/subunit.inc
 DEBIAN_UNPACK_DIR = "${WORKDIR}"
 DEBIAN_PATCH_TYPE = "quilt"
 do_debian_unpack_extra_prepend () {
-        return 
+    return 
 }
 
 BBCLASSEXTEND = "nativesdk"

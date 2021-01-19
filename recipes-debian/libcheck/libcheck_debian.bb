@@ -28,7 +28,8 @@ RDEPENDS_${PN} += "gawk"
 RDEPENDS_${PN}_class-native = ""
 
 do_debian_patch_prepend() {
-    cd ${DEBIAN_UNPACK_DIR}
+    import subprocess
+    os.chdir(d.getVar("DEBIAN_UNPACK_DIR"))
     # remove patch for Debian
-    sed -i -e '/01pkgconfig\.patch/d' ./debian/patches/series
+    subprocess.run(["sed", "-i", "-e", "'/01pkgconfig\.patch/d'", "./debian/patches/series"])
 }
