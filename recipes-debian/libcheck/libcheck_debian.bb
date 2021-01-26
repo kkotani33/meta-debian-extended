@@ -31,5 +31,5 @@ do_debian_patch_prepend() {
     import subprocess
     os.chdir(d.getVar("DEBIAN_UNPACK_DIR"))
     # remove patch for Debian
-    subprocess.run(["sed", "-i", "-e", "'/01pkgconfig\.patch/d'", "./debian/patches/series"])
+    subprocess.run("sed -i -e '/01pkgconfig\.patch/d' ./debian/patches/series", shell=True)
 }
