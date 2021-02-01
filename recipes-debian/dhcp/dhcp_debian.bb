@@ -30,7 +30,7 @@ SRC_URI += "file://0001-define-macro-_PATH_DHCPD_CONF-and-_PATH_DHCLIENT_CON.pat
 
 do_debian_patch_prepend() {
     import subprocess
-    subprocess.run(["sed", "-i", "-e", "'/system-bind\.patch/ d'", d.getVar("S") + "/debian/patches/series"])
+    subprocess.run("sed -i -e '/system-bind\.patch/ d' ${S}/debian/patches/series", shell=True)
 }
 
 LDFLAGS_append = " -pthread"
