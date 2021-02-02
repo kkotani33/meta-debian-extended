@@ -37,7 +37,7 @@ do_debian_patch_prepend() {
     import subprocess
     os.chdir(d.getVar("DEBIAN_UNPACK_DIR"))
     # Do not modify .def file. Otherwise, we need autogen and guile-2.0.
-    subprocess(["sed", "-i", "-e", "'/sntp-kod-location\.patch/ d'", "./debian/patches/series"])
+    subprocess.run("sed -i -e '/sntp-kod-location\.patch/ d' ./debian/patches/series", shell=True)
 }
 
 # The ac_cv_header_readline_history is to stop ntpdc depending on either
