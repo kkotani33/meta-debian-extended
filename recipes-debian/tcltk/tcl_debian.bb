@@ -37,7 +37,7 @@ VER = "${PV}"
 do_debian_patch_append() {
     import subprocess
     os.chdir(d.getVar("S") + "/..")
-    subprocess.run(["patch", "-R", "-u", "-p1", "<debian/patches/tclprivate.diff"])
+    subprocess.run("patch  -R -u -p1 <debian/patches/tclprivate.diff", shell=True)
 }
 
 inherit autotools ptest binconfig
